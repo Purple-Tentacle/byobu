@@ -1,0 +1,22 @@
+#!/bin/bash
+
+COLOR_RESTORE="#[fg=$BYOBU_LIGHT bg=$BYOBU_DARK]"
+LASTLINE=$(tail -1 /home/chris/.plot-process)
+LASTENTRY=$(echo $LASTLINE | awk -F '^M' '{print $NF}')
+PERCENT=$(echo $LASTENTRY | awk '{print $(NF-4)}')
+PERCENT=$(echo $PERCENT | rev | cut -c6- | rev)
+SPEED=$(echo $LASTENTRY | awk '{print $(NF-3)}')
+SPEED=$(echo $SPEED | rev | cut -c8- | rev)
+
+if [[ $PERCENT != "" ]]
+then
+
+  COLOR_SET="#[fg=white bg=blue bold]"
+  echo -e "$COLOR_SET" $PERCENT"%%" $SPEED"Mbps" "$COLOR_RESTORE"
+
+else
+
+  COLOR_SET="#[fg=$BYOBU_LIGHT bg=red]"
+  echo -e "$COLOR_SET" "SEE PLOT PROCESS FILE" "$COLOR_RESTORE"
+
+fi

@@ -1,0 +1,18 @@
+#!/bin/bash
+COLOR_RESTORE="#[fg=$BYOBU_LIGHT bg=$BYOBU_DARK]"
+
+cd /home/chris/chia-blockchain/
+. ./activate
+STATUS=$(chia farm summary | grep -oP '(?<=Farming status: ).*')
+
+#STATUS="0"
+
+if [[ $STATUS = "Farming" ]]
+then
+        STATUS="Frmg"
+        COLOR_SET="#[fg=white bg=blue bold]"
+        echo -e "$COLOR_SET" $STATUS "$COLOR_RESTORE"
+else
+        COLOR_SET="#[fg=$BYOBU_LIGHT bg=red]"
+        echo -e "$COLOR_SET" "NOT FARMING" "$COLOR_RESTORE"
+fi

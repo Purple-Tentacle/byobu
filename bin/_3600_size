@@ -1,0 +1,17 @@
+#!/bin/bash
+COLOR_RESTORE="#[fg=$BYOBU_LIGHT bg=$BYOBU_DARK]"
+
+cd /home/chris/chia-blockchain/
+. ./activate
+STATUS=$(chia farm summary | grep -oP '(?<=Total size of plots: ).*')
+
+#STATUS="0"
+
+if [[ $STATUS != "0" ]]
+then
+        COLOR_SET="#[fg=white bg=blue bold]"
+        echo -e "$COLOR_SET" $STATUS "$COLOR_RESTORE"
+else
+        COLOR_SET="#[fg=$BYOBU_LIGHT bg=red]"
+        echo -e "$COLOR_SET" $STATUS"GB SIZE" "$COLOR_RESTORE"
+fi

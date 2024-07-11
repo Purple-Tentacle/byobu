@@ -1,0 +1,18 @@
+#!/bin/bash
+COLOR_RESTORE="#[fg=$BYOBU_LIGHT bg=$BYOBU_DARK]"
+
+cd /home/chris/chia-blockchain/
+. ./activate
+STATUS=$(chia show -s | grep -oP '(?<=Full Node ).*')
+
+#STATUS="Synced1"
+
+if [[ $STATUS = "Synced" ]]
+then
+        STATUS="Syn"
+        COLOR_SET="#[fg=white bg=blue bold]"
+        echo -e "$COLOR_SET" "Node "$STATUS "$COLOR_RESTORE"
+else
+        COLOR_SET="#[fg=$BYOBU_LIGHT bg=red]"
+        echo -e "$COLOR_SET" "NODE NOT SYNCED" "$COLOR_RESTORE"
+fi

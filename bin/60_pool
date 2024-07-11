@@ -1,0 +1,25 @@
+#!/bin/bash
+COLOR_RESTORE="#[fg=$BYOBU_LIGHT bg=$BYOBU_DARK]"
+
+JSON=$(curl --request GET \
+     --url https://developer.pool.space/api/v1/farms/chrisms \
+     --header 'Accept: text/plain' \
+     --header 'Developer-Key: tvSnjhzUCvdYyvoY4EdvTT7b5BJNH0eQNWvG6PGP6XloZO6A38VPlywvCsxp5vPU' \
+     --header 'User-Agent: ReadMe-API-Explorer')
+
+#echo $JSON
+
+UNPAID=$(echo $JSON | jq -r '.unpaidBalanceInXCH')
+POINTS=$(echo $JSON | jq -r '.pendingPoints')
+UNPAID=$(echo $UNPAID | awk '{ print sprintf("%.3f", $1); }')
+#UNPAID=$(echo $UNPAID | rev | cut -c8- | rev)
+
+
+if [[ $JSON != "" ]]
+then
+        COLOR_SET="#[fg=white bg=blue bold]"
+        echo -e "$COLOR_SET" $POINTS"Pts" $UNPAID"XCH" "$COLOR_RESTORE"
+else
+        COLOR_SET="#[fg=$BYOBU_LIGHT bg=red]"
+        echo -e "$COLOR_SET" "JSON ERROR" "$COLOR_RESTORE"
+fi

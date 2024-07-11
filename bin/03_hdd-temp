@@ -1,0 +1,27 @@
+#!/bin/bash
+COLOR_RESTORE="#[fg=$BYOBU_LIGHT bg=$BYOBU_DARK]"
+
+cd /home/chris/chia-blockchain/
+. ./activate
+
+TEMP01=$(sudo hddtemp SATA:/$(df /home/chris/hdd01 |egrep -o '^[/a-z0-9]*') -n)
+TEMP02=$(sudo hddtemp SATA:/$(df /home/chris/hdd02 |egrep -o '^[/a-z0-9]*') -n)
+TEMP03=$(sudo hddtemp SATA:/$(df /home/chris/hdd03 |egrep -o '^[/a-z0-9]*') -n)
+TEMP04=$(sudo hddtemp SATA:/$(df /home/chris/hdd04 |egrep -o '^[/a-z0-9]*') -n)
+TEMP05=$(sudo hddtemp SATA:/$(df /home/chris/hdd05 |egrep -o '^[/a-z0-9]*') -n)
+TEMP06=$(sudo hddtemp SATA:/$(df /home/chris/hdd06 |egrep -o '^[/a-z0-9]*') -n)
+TEMP07=$(sudo hddtemp SATA:/$(df /home/chris/hdd07 |egrep -o '^[/a-z0-9]*') -n)
+TEMP08=$(sudo hddtemp SATA:/$(df /home/chris/hdd08 |egrep -o '^[/a-z0-9]*') -n)
+TEMP09=$(sudo hddtemp SATA:/$(df /home/chris/hdd09 |egrep -o '^[/a-z0-9]*') -n)
+TEMP10=$(sudo hddtemp SATA:/$(df /home/chris/hdd10 |egrep -o '^[/a-z0-9]*') -n)
+
+#STATUS="0"
+
+if [[ $TEMP01 < 50 ]] && [[ $TEMP02 < 50 ]] && [[ $TEMP03 < 50 ]] && [[ $TEMP04 < 50 ]] && [[ $TEMP05 < 50 ]] && [[ $TEMP06 < 50 ]] && [[ $TEMP07 < 50 ]] && [[ $TEMP08 < 50 ]] && [[ $TEMP09 < 50 ]] && [[ $TEMP10 < 50 ]]
+then
+        COLOR_SET="#[fg=white bg=blue bold]"
+        echo -e "$COLOR_SET" "°C" "1:"$TEMP01 "2:"$TEMP02 "3:"$TEMP03 "4:"$TEMP04 "5:"$TEMP05 "6:"$TEMP06 "7:"$TEMP07 "8:"$TEMP08 "9:"$TEMP09 "10:"$TEMP10 "$COLOR_RESTORE"
+else
+        COLOR_SET="#[fg=$BYOBU_LIGHT bg=red]"
+        echo -e "$COLOR_SET" "°C" "1:"$TEMP01 "2:"$TEMP02 "3:"$TEMP03 "4:"$TEMP04 "5:"$TEMP05 "6:"$TEMP06 "7:"$TEMP07 "8:"$TEMP08 "9:"$TEMP09 "10:"$TEMP10 "$COLOR_RESTORE"
+fi

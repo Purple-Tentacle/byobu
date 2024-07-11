@@ -1,0 +1,18 @@
+#!/bin/bash
+COLOR_RESTORE="#[fg=$BYOBU_LIGHT bg=$BYOBU_DARK]"
+
+cd /home/chris/chia-blockchain/
+. ./activate
+STATUS=$(chia wallet show | grep -oP -m 1 '(?<=Sync status: ).*')
+
+#STATUS="0"
+
+if [[ $STATUS = "Synced" ]]
+then
+        STATUS="Syn"
+        COLOR_SET="#[fg=white bg=blue bold]"
+        echo -e "$COLOR_SET" "Wall" $STATUS "$COLOR_RESTORE"
+else
+        COLOR_SET="#[fg=$BYOBU_LIGHT bg=red]"
+        echo -e "$COLOR_SET" "WALLET NOT SYNCED" "$COLOR_RESTORE"
+fi
