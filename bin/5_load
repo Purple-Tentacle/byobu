@@ -1,3 +1,26 @@
 #!/bin/bash
 COLOR_RESTORE="#[fg=$BYOBU_LIGHT bg=$BYOBU_DARK]"
-cat /proc/loadavg | awk '{print $1, $2, $3}'
+ONE=$(cat /proc/loadavg | awk '{print $1}')
+FIVE=$(cat /proc/loadavg | awk '{print $2}')
+FIFTEEN=$(cat /proc/loadavg | awk '{print $3}')
+LIMIT=1
+
+CHECKONE=$(echo "$ONE>$LIMIT" | bc -l)
+if (( $CHECKONE ))
+then
+	COLOR_SET="#[fg=yellow bg=black]"
+fi
+
+CHECKFIVE=$(echo "$FIVE>$LIMIT" | bc -l)
+if (( $CHECKFIVE ))
+then
+	COLOR_SET="#[fg=black bg=yellow]"
+fi
+
+CHECKFIFTEEN=$(echo "$FIFTEEN>$LIMIT" | bc -l)
+if (( $CHECKFIFTEEN ))
+then
+	COLOR_SET="#[fg=black bg=red]"
+fi
+
+echo -e "$COLOR_SET $ONE $FIVE $FIFTEEN $COLOR_RESTORE"
