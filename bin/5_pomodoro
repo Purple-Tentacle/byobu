@@ -1,0 +1,10 @@
+#!/bin/bash
+COLOR_RESTORE="#[fg=$BYOBU_LIGHT bg=$BYOBU_DARK]"
+STATUS=$(/home/chris/go/bin/pomodoro status)
+
+if [[ $STATUS = "" ]]
+then
+	STATUS="🍅OFF"
+fi
+#STATUS="test
+echo -e $STATUS
