@@ -1,0 +1,3 @@
+#!/bin/bash
+COLOR_RESTORE="#[fg=$BYOBU_LIGHT bg=$BYOBU_DARK]"
+cat /proc/loadavg | awk '{print $1, $2, $3}'
